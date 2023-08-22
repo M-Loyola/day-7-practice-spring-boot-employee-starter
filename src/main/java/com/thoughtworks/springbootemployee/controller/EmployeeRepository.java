@@ -58,4 +58,10 @@ public class EmployeeRepository {
         employees.remove(employee);
     }
 
+    public List<Employee> listByPage(Long pageNumber, Long pageSize) {
+        return employees.stream()
+                .skip((pageNumber-1)*pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+    }
 }
