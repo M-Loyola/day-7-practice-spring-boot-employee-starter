@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 @Repository
 public class CompanyRepository {
     private static final List<Company> companies = new ArrayList<>();
+    private static final long START_ID_MINUS_ONE = 0L;
+    private static final long ID_INCREMENT = 1L;
 
     static {
         companies.add(new Company(1, "Spring"));
@@ -47,7 +49,7 @@ public class CompanyRepository {
         return companies.stream()
                 .mapToLong(Company::getId)
                 .max()
-                .orElse(0L) + 1L;
+                .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
 
     public void deleteCompany(Company company) {
