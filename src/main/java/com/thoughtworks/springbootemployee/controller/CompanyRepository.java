@@ -21,13 +21,13 @@ public class CompanyRepository {
         return companies;
     }
 
-    public Company findById(Long id) {
+    public Company findCompanyById(Long id) {
         return companies.stream()
                 .filter(company -> company.getId() == id)
                 .findFirst()
                 .orElseThrow(CompanyNotFoundException::new);
     }
-    public List<Company> listByPage(Long pageNumber, Long pageSize) {
+    public List<Company> listCompaniesByPage(Long pageNumber, Long pageSize) {
         return companies.stream()
                 .skip((pageNumber-1)*pageSize)
                 .limit(pageSize)
@@ -47,7 +47,7 @@ public class CompanyRepository {
                 .orElse(0L) + 1L;
     }
 
-    public void delete(Company company) {
+    public void deleteCompany(Company company) {
         companies.remove(company);
     }
 }

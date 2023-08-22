@@ -23,7 +23,7 @@ public class CompanyController {
     }
     @GetMapping(path = "/{id}")
     public Company findById(@PathVariable Long id) {
-        return companyRepository.findById(id);
+        return companyRepository.findCompanyById(id);
     }
     @GetMapping("/{companyId}/employees")
     public List<Employee> getEmployeesByCompanyId(@PathVariable Long companyId) {
@@ -31,7 +31,7 @@ public class CompanyController {
     }
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Company> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
-        return companyRepository.listByPage(pageNumber, pageSize);
+        return companyRepository.listCompaniesByPage(pageNumber, pageSize);
     }
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -41,16 +41,16 @@ public class CompanyController {
     }
     @PutMapping("/{id}")
     public Company updateCompany(@PathVariable Long id, @RequestBody Company updatedCompanyInfo) {
-        Company company = companyRepository.findById(id);
+        Company company = companyRepository.findCompanyById(id);
         company.setName(updatedCompanyInfo.getName());
         return company;
     }
     @DeleteMapping("/{id}")
     public void deleteCompany(@PathVariable Long id) {
-        Company company = companyRepository.findById(id);
+        Company company = companyRepository.findCompanyById(id);
         if (company == null) {
             throw new CompanyNotFoundException();
         }
-        companyRepository.delete(company);
+        companyRepository.deleteCompany(company);
     }
 }
