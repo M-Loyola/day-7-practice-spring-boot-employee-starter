@@ -9,8 +9,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
+
+    private final EmployeeRepository employeeRepository;
+
     @Autowired
-    private EmployeeRepository employeeRepository;
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     @GetMapping
     public List<Employee> listAll() {
@@ -25,5 +30,11 @@ public class EmployeeController {
     @GetMapping(params = {"gender"})
     public List<Employee> findByGender(@RequestParam String gender) {
         return employeeRepository.findByGender(gender);
+    }
+
+    @PostMapping
+    public String addEmployee(@RequestBody Employee employee){
+        employeeRepository.addEmployee(employee);
+        return "Add employee is successful";
     }
 }
