@@ -24,21 +24,22 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/{id}")
-    public Employee findById(@PathVariable Long id) {
+    public Employee findEmployeeById(@PathVariable Long id) {
         return employeeRepository.findEmployeeById(id);
     }
 
     @GetMapping(params = {"gender"})
-    public List<Employee> findByGender(@RequestParam String gender) {
+    public List<Employee> findEmployeeByGender(@RequestParam String gender) {
         return employeeRepository.findEmployeeByGender(gender);
     }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Employee addEmployee(@RequestBody Employee employee){
+    public Employee addEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
 
     }
+
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployee) {
         Employee employee = employeeRepository.findEmployeeById(id);
@@ -55,8 +56,9 @@ public class EmployeeController {
         }
         employeeRepository.deleteEmployee(employee);
     }
+
     @GetMapping(params = {"pageNumber", "pageSize"})
-    public List<Employee> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
+    public List<Employee> listEmployeesByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
         return employeeRepository.listEmployeesByPage(pageNumber, pageSize);
     }
 }
