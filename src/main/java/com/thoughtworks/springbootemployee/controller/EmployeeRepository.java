@@ -20,18 +20,18 @@ public class EmployeeRepository {
         employees.add(new Employee(5L, "Aubrey", 21, "Male", 6900, 1));
     }
 
-    public List<Employee> listAll() {
+    public List<Employee> listAllEmployees() {
         return employees;
     }
 
-    public Employee findById(Long id) {
+    public Employee findEmployeeById(Long id) {
         return employees.stream()
                 .filter(employee -> employee.getId() == id)
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public List<Employee> findByGender(String gender) {
+    public List<Employee> findEmployeeByGender(String gender) {
         return employees.stream()
                 .filter(employee -> employee.getGender().equals(gender))
                 .collect(Collectors.toList());
@@ -58,18 +58,18 @@ public class EmployeeRepository {
                 .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
 
-    public void delete(Employee employee) {
+    public void deleteEmployee(Employee employee) {
         employees.remove(employee);
     }
 
-    public List<Employee> listByPage(Long pageNumber, Long pageSize) {
+    public List<Employee> listEmployeesByPage(Long pageNumber, Long pageSize) {
         return employees.stream()
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
 
-    public List<Employee> findByCompanyId(Long companyId) {
+    public List<Employee> findEmployeeByCompanyId(Long companyId) {
         return employees.stream()
                 .filter(employee -> employee.getCompanyId() == companyId)
                 .collect(Collectors.toList());

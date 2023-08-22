@@ -27,7 +27,7 @@ public class CompanyController {
     }
     @GetMapping("/{companyId}/employees")
     public List<Employee> getEmployeesByCompanyId(@PathVariable Long companyId) {
-        return employeeRepository.findByCompanyId(companyId);
+        return employeeRepository.findEmployeeByCompanyId(companyId);
     }
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Company> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
