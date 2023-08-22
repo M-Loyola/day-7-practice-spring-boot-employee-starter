@@ -19,7 +19,7 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> listAll() {
+    public List<Employee> listAllEmployees() {
         return employeeRepository.listAll();
     }
 
@@ -33,13 +33,13 @@ public class EmployeeController {
         return employeeRepository.findByGender(gender);
     }
 
-    @PostMapping("/addEmployee")
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Employee addEmployee(@RequestBody Employee employee){
         return employeeRepository.save(employee);
 
     }
-    @PutMapping("/updateEmployee/{id}")
+    @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployee) {
         Employee employee = employeeRepository.findById(id);
         employee.setAge(newEmployee.getAge());
@@ -47,7 +47,7 @@ public class EmployeeController {
         return employee;
     }
 
-    @DeleteMapping("/deleteEmployee/{id}")
+    @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id) {
         Employee employee = employeeRepository.findById(id);
         if (employee == null) {
