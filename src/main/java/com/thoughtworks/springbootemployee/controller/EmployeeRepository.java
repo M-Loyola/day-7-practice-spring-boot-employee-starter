@@ -16,7 +16,6 @@ public class EmployeeRepository {
         employees.add(new Employee(3L, "Sandra", 66, "Female", 788, 3));
         employees.add(new Employee(4L, "Sam", 34, "Male", 4566, 5));
         employees.add(new Employee(5L, "Aubrey", 21, "Male", 6900, 1));
-
     }
 
     public List<Employee> listAll() {
@@ -38,7 +37,14 @@ public class EmployeeRepository {
 
     public Employee save(Employee employee) {
         Long id = generateNextId();
-        Employee toBeSavedEmployee = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.getCompanyId());
+        Employee toBeSavedEmployee = new Employee(
+                id,
+                employee.getName(),
+                employee.getAge(),
+                employee.getGender(),
+                employee.getSalary(),
+                employee.getCompanyId()
+        );
         employees.add(toBeSavedEmployee);
         return toBeSavedEmployee;
     }
