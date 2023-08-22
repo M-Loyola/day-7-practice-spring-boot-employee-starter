@@ -11,15 +11,15 @@ import java.util.stream.Collectors;
 @Repository
 public class EmployeeRepository {
     private static final List<Employee> employees = new ArrayList<>();
-    private static final long START_ID_MINUS_ONE = 0L;
-    private static final long ID_INCREMENT = 1L;
+    private static final Long START_ID_MINUS_ONE = 0L;
+    private static final Long ID_INCREMENT = 1L;
 
     static {
-        employees.add(new Employee(1L, "Alice", 30, "Female", 500, 1));
-        employees.add(new Employee(2L, "Bob", 23, "Male", 699, 2));
-        employees.add(new Employee(3L, "Sandra", 66, "Female", 788, 3));
-        employees.add(new Employee(4L, "Sam", 34, "Male", 4566, 5));
-        employees.add(new Employee(5L, "Aubrey", 21, "Male", 6900, 1));
+        employees.add(new Employee(1L, "Alice", 30, "Female", 500, 1L));
+        employees.add(new Employee(2L, "Bob", 23, "Male", 699, 2L));
+        employees.add(new Employee(3L, "Sandra", 66, "Female", 788, 3L));
+        employees.add(new Employee(4L, "Sam", 34, "Male", 4566, 5L));
+        employees.add(new Employee(5L, "Aubrey", 21, "Male", 6900, 1L));
     }
 
     public List<Employee> listAllEmployees() {
@@ -28,7 +28,7 @@ public class EmployeeRepository {
 
     public Employee findEmployeeById(Long id) {
         return employees.stream()
-                .filter(employee -> employee.getId() == id)
+                .filter(employee -> employee.getId().equals(id))
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
@@ -73,7 +73,7 @@ public class EmployeeRepository {
 
     public List<Employee> findEmployeeByCompanyId(Long companyId) {
         return employees.stream()
-                .filter(employee -> employee.getCompanyId() == companyId)
+                .filter(employee -> employee.getCompanyId().equals(companyId))
                 .collect(Collectors.toList());
     }
 }
