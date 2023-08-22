@@ -6,13 +6,22 @@ public class Employee {
     private int age;
     private String gender;
     private int salary;
+    private long companyId;
 
-    public Employee(long id, String name, int age, String gender, int salary) {
+    public Employee(long id, String name, int age, String gender, int salary, long companyId) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+        this.companyId = companyId;
+    }
+    public long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
     }
 
     public long getId() {

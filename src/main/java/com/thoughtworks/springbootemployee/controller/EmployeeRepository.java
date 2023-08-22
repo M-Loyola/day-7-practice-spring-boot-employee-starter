@@ -16,11 +16,11 @@ public class EmployeeRepository {
     private static final List<Employee> employees = new ArrayList<>();
 
     static {
-        employees.add(new Employee(1L, "Alice", 30, "Female", 500));
-        employees.add(new Employee(2L, "Bob", 23, "Male", 699));
-        employees.add(new Employee(3L, "Sandra", 66, "Female", 788));
-        employees.add(new Employee(4L, "Sam", 34, "Male", 4566));
-        employees.add(new Employee(5L, "Aubrey", 69, "Male", 6969));
+        employees.add(new Employee(1L, "Alice", 30, "Female", 500,1));
+        employees.add(new Employee(2L, "Bob", 23, "Male", 699,2));
+        employees.add(new Employee(3L, "Sandra", 66, "Female", 788,3));
+        employees.add(new Employee(4L, "Sam", 34, "Male", 4566,5));
+        employees.add(new Employee(5L, "Aubrey", 21, "Male", 6900,1));
 
     }
 
@@ -43,7 +43,7 @@ public class EmployeeRepository {
 
     public Employee save(Employee employee){
         Long id = generateNextId();
-        Employee toBeSavedEmployee = new Employee(id, employee.getName(),employee.getAge(),employee.getGender(),employee.getSalary());
+        Employee toBeSavedEmployee = new Employee(id, employee.getName(),employee.getAge(),employee.getGender(),employee.getSalary(), employee.getCompanyId());
         employees.add(toBeSavedEmployee);
         return toBeSavedEmployee;
     }
@@ -62,6 +62,11 @@ public class EmployeeRepository {
         return employees.stream()
                 .skip((pageNumber-1)*pageSize)
                 .limit(pageSize)
+                .collect(Collectors.toList());
+    }
+    public List<Employee> findByCompanyId(Long companyId) {
+        return employees.stream()
+                .filter(employee -> employee.getCompanyId() == companyId)
                 .collect(Collectors.toList());
     }
 }
