@@ -11,18 +11,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
-public class HelloController {
+public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
-
-    @GetMapping(path = "/{userName}")
-    public String getAll(@PathVariable String userName) {
-
-        return "Hello:" + userName;
-    }
 
     @GetMapping
     public List<Employee> listAll() {
         return employeeRepository.listAll();
+    }
+
+    @GetMapping(path = "/{id}")
+    public Employee findById(@PathVariable Long id){
+        return employeeRepository.findById(id);
     }
 }

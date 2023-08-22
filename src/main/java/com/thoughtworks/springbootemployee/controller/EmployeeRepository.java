@@ -20,4 +20,11 @@ public class EmployeeRepository {
     public List<Employee> listAll() {
         return employees;
     }
+
+    public Employee findById(Long id) {
+        return employees.stream()
+                .filter(employee -> employee.getId() == id)
+                .findFirst()
+                .orElseThrow(EmployeeNotFoundException::new);
+    }
 }
