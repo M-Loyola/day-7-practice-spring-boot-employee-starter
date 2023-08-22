@@ -45,4 +45,12 @@ public class CompanyController {
         company.setName(updatedCompanyInfo.getName());
         return company;
     }
+    @DeleteMapping("/{id}")
+    public void deleteCompany(@PathVariable Long id) {
+        Company company = companyRepository.findById(id);
+        if (company == null) {
+            throw new CompanyNotFoundException();
+        }
+        companyRepository.delete(company);
+    }
 }
