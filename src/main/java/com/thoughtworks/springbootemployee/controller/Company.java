@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 public class Company {
-    private long id;
+    private final long id;
     private String name;
 
     public Company(long id, String name) {
@@ -11,10 +11,6 @@ public class Company {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
