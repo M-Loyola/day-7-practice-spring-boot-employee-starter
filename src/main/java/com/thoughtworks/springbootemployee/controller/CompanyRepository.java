@@ -11,12 +11,13 @@ public class CompanyRepository {
     private static final List<Company> companies = new ArrayList<>();
 
     static {
-        companies.add(new Company(1,"Spring"));
-        companies.add(new Company(2,"Boot"));
-        companies.add(new Company(3,"Spring Boot"));
-        companies.add(new Company(4,"Boot Project"));
-        companies.add(new Company(5,"Spring Project"));
+        companies.add(new Company(1, "Spring"));
+        companies.add(new Company(2, "Boot"));
+        companies.add(new Company(3, "Spring Boot"));
+        companies.add(new Company(4, "Boot Project"));
+        companies.add(new Company(5, "Spring Project"));
     }
+
     public List<Company> listAllCompanies() {
         return companies;
     }
@@ -27,9 +28,10 @@ public class CompanyRepository {
                 .findFirst()
                 .orElseThrow(CompanyNotFoundException::new);
     }
+
     public List<Company> listCompaniesByPage(Long pageNumber, Long pageSize) {
         return companies.stream()
-                .skip((pageNumber-1)*pageSize)
+                .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
@@ -40,7 +42,8 @@ public class CompanyRepository {
         companies.add(toBeSavedCompany);
         return toBeSavedCompany;
     }
-    public Long generateNextId(){
+
+    public Long generateNextId() {
         return companies.stream()
                 .mapToLong(Company::getId)
                 .max()
