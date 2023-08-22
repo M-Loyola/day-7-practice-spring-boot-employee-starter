@@ -46,4 +46,14 @@ public class EmployeeController {
         employee.setSalary(newEmployee.getSalary());
         return employee;
     }
+
+    @DeleteMapping("/deleteEmployee/{id}")
+    public void deleteEmployee(@PathVariable Long id) {
+        Employee employee = employeeRepository.findById(id);
+        if (employee == null) {
+            throw new EmployeeNotFoundException();
+        }
+        employeeRepository.delete(employee);
+    }
+
 }

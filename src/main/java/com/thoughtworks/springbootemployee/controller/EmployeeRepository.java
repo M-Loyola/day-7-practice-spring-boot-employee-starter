@@ -54,4 +54,8 @@ public class EmployeeRepository {
                 .max()
                 .orElse(0L) + 1L;
     }
+    public void delete(Employee employee) {
+        employees.remove(employee);
+    }
+
 }
