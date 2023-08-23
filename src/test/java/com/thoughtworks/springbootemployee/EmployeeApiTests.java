@@ -98,7 +98,7 @@ class EmployeeApiTests {
                 "    \"salary\" : 5000,\n" +
                 "    \"companyId\" : 1\n" +
                 "}";
-        //When
+        //When Then
         mockMvcClient.perform(MockMvcRequestBuilders.post("/employees")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(newEmployeeJSON))
@@ -109,6 +109,5 @@ class EmployeeApiTests {
                 .andExpect(jsonPath("$.gender").value("Female"))
                 .andExpect(jsonPath("$.salary").value(5000))
                 .andExpect(jsonPath("$.companyId").value(1));
-        //Then
     }
 }
