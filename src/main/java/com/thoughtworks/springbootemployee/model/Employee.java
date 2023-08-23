@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.model;
 
 public class Employee {
-    private final Long id;
+    private Long id;
     private final String name;
     private Integer age;
     private final String gender;
@@ -47,5 +47,9 @@ public class Employee {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

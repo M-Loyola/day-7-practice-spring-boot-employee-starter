@@ -77,4 +77,14 @@ public class EmployeeRepository {
                 .filter(employee -> employee.getCompanyId().equals(companyId))
                 .collect(Collectors.toList());
     }
+
+    public Employee insert(Employee newEmployee) {
+        newEmployee.setId(generateNextId());
+        employees.add(newEmployee);
+        return newEmployee;
+    }
+
+    public void cleanAll() {
+        employees.clear();
+    }
 }
