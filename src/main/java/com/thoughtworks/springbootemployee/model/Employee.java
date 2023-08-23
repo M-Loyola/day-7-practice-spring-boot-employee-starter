@@ -8,6 +8,8 @@ public class Employee {
     private Integer salary;
     private final Long companyId;
 
+    private boolean employmentStatus;
+
     public Employee(Long id, String name, Integer age, String gender, Integer salary, Long companyId) {
         this.id = id;
         this.name = name;
@@ -55,5 +57,13 @@ public class Employee {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isEmploymentStatus() {
+        return employmentStatus;
+    }
+
+    public void setEmploymentStatus(boolean employmentStatus) {
+        this.employmentStatus = employmentStatus;
     }
 }

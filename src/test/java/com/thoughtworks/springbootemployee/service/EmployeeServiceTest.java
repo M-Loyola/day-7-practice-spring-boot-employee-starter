@@ -55,5 +55,20 @@ class EmployeeServiceTest {
         //Then
         assertEquals("Employee must be 18-65 years old", employeeCreateException.getMessage());
     }
+    @Test
+    void should_return_new_employee_with_active_status_true_when_create_given_employee_service_and_employee(){
+        //Given
+        Employee employee = new Employee(null, "Sam", 23, "Female", 1200, 1L);
+        when(mockedEmployeeRepository.insert(employee)).thenReturn(employee);
+        //When
+        Employee employeeResponse = employeeService.create(employee);
+        //Then
+        assertEquals(employee.getId(),employeeResponse.getId());
+        assertEquals("Sam",employeeResponse.getName());
+        assertEquals(23,employeeResponse.getAge());
+        assertEquals("Female",employeeResponse.getGender());
+        assertEquals(1200,employeeResponse.getSalary());
+        assertEquals(true,employeeResponse.isEmploymentStatus());
+    }
 }
 
