@@ -1,11 +1,13 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,6 +32,17 @@ class EmployeeServiceTest {
         assertEquals(23,employeeResponse.getAge());
         assertEquals("Female",employeeResponse.getGender());
         assertEquals(1200,employeeResponse.getSalary());
+    }
+    @Test
+    void should_throw_exception_when_create_given_employee_service_and_employee_age_is_less_than_18(){
+        //Given
+        Employee employee = new Employee(null, "Sam", 17, "Female", 1200, 1L);
+        //When
+        EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () -> {
+            employeeService.create(employee);
+        });
+        //Then
+        assertEquals("Employee must be 18-65 years old", employeeCreateException.getMessage());
     }
 }
 

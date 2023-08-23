@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 
@@ -11,6 +12,9 @@ public class EmployeeService {
     }
 
     public Employee create(Employee employee) {
+        if (employee.hasInvalidAge(employee)) {
+            throw new EmployeeCreateException();
+        }
         return employeeRepository.insert(employee);
     }
 }
