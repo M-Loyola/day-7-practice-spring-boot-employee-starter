@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
+import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 
@@ -21,5 +22,10 @@ public class EmployeeService {
 
     public void delete(Employee employee) {
         employee.setEmploymentStatus(false);
+    }
+
+    public void update(Employee employee, Integer newAge, Integer newSalary) {
+        employee.setAge(newAge);
+        employee.setSalary(newSalary);
     }
 }

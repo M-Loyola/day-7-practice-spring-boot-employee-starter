@@ -86,5 +86,23 @@ class EmployeeServiceTest {
         assertEquals(1200,employeeResponse.getSalary());
         assertEquals(false,employeeResponse.isEmploymentStatus());
     }
+    @Test
+    void should_return_updated_employee_when_update_given_employee_service_and_employee_with_active_status_true(){
+        //Given
+        Employee employee = new Employee(null, "Sam", 23, "Female", 1200, 1L);
+        Integer newAge = 24;
+        Integer newSalary = 1500;
+        when(mockedEmployeeRepository.insert(employee)).thenReturn(employee);
+        //When
+        Employee employeeResponse = employeeService.create(employee);
+        employeeService.update(employee, newAge, newSalary);
+        //Then
+        assertEquals(employee.getId(),employeeResponse.getId());
+        assertEquals("Sam",employeeResponse.getName());
+        assertEquals(24,employeeResponse.getAge());
+        assertEquals("Female",employeeResponse.getGender());
+        assertEquals(1500,employeeResponse.getSalary());
+        assertEquals(true,employeeResponse.isEmploymentStatus());
+    }
 }
 
