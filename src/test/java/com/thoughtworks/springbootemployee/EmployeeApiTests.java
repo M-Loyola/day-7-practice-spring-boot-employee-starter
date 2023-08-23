@@ -110,4 +110,24 @@ class EmployeeApiTests {
                 .andExpect(jsonPath("$.salary").value(5000))
                 .andExpect(jsonPath("$.companyId").value(1));
     }
+    @Test
+    void should_return_employee_update_when_perform_update_employees_given_new_employee_age_and_salary_with_JSON_format() throws Exception {
+        //Given
+        Employee Sam = employeeRepository.insert(new Employee(null, "Sam", 23, "Female", 1200, 1L));
+        String updatedEmployeeJSON = "{\n" +
+                "    \"age\" : 25,\n" +
+                "    \"salary\" : 1500\n" +
+                "}";
+        //When Then
+        mockMvcClient.perform(MockMvcRequestBuilders.put("/employees/" + Sam.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedEmployeeJSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(Sam.getId()))
+                .andExpect(jsonPath("$.name").value(Sam.getName()))
+                .andExpect(jsonPath("$.age").value(25))
+                .andExpect(jsonPath("$.gender").value(Sam.getGender()))
+                .andExpect(jsonPath("$.salary").value(1500))
+                .andExpect(jsonPath("$.companyId").value(Sam.getCompanyId()));
+    }
 }
