@@ -130,4 +130,12 @@ class EmployeeApiTests {
                 .andExpect(jsonPath("$.salary").value(1500))
                 .andExpect(jsonPath("$.companyId").value(Sam.getCompanyId()));
     }
+    @Test
+    void should_delete_employee_when_perform_delete_employee_given_employee_id() throws Exception {
+        // Given
+        Employee Sam = employeeRepository.insert(new Employee(null, "Sam", 23, "Female", 1200, 1L));
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + Sam.getId()))
+                .andExpect(status().isNoContent());
+    }
 }
