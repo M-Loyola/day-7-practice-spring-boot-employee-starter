@@ -11,6 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -143,27 +146,29 @@ class EmployeeApiTests {
         //Given
         Long pageNumber = 1L;
         Long pageSize = 2L;
-        Employee Sam = employeeRepository.insert(new Employee(null, "Sam", 23, "Female", 1200, 1L));
-        Employee Luna = employeeRepository.insert(new Employee(null, "Luna", 23, "Female", 1200, 1L));
-        Employee Richard = employeeRepository.insert(new Employee(null, "Richard", 23, "Male", 1200, 1L));
-        Employee Albert = employeeRepository.insert(new Employee(null, "Albert", 23, "Male", 1200, 1L));
+        List<Employee> employeeList = Arrays.asList(
+                employeeRepository.insert(new Employee(null, "Sam", 23, "Female", 1200, 1L)),
+                employeeRepository.insert(new Employee(null, "Luna", 23, "Female", 1200, 1L)),
+                employeeRepository.insert(new Employee(null, "Richard", 23, "Male", 1200, 1L)),
+                employeeRepository.insert(new Employee(null, "Albert", 23, "Male", 1200, 1L))
+        );
         //When Then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees")
                         .param("pageNumber", String.valueOf(pageNumber))
-                        .param("pageSize",String.valueOf(pageSize)))
+                        .param("pageSize", String.valueOf(pageSize)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(Math.toIntExact(pageSize))))
-                .andExpect(jsonPath("$[0].id").value(Sam.getId()))
-                .andExpect(jsonPath("$[0].name").value(Sam.getName()))
-                .andExpect(jsonPath("$[0].age").value(Sam.getAge()))
-                .andExpect(jsonPath("$[0].gender").value(Sam.getGender()))
-                .andExpect(jsonPath("$[0].salary").value(Sam.getSalary()))
-                .andExpect(jsonPath("$[0].companyId").value(Sam.getCompanyId()))
-                .andExpect(jsonPath("$[1].id").value(Luna.getId()))
-                .andExpect(jsonPath("$[1].name").value(Luna.getName()))
-                .andExpect(jsonPath("$[1].age").value(Luna.getAge()))
-                .andExpect(jsonPath("$[1].gender").value(Luna.getGender()))
-                .andExpect(jsonPath("$[1].salary").value(Luna.getSalary()))
-                .andExpect(jsonPath("$[1].companyId").value(Luna.getCompanyId()));
+                .andExpect(jsonPath("$[0].id").value(employeeList.get(0).getId()))
+                .andExpect(jsonPath("$[0].name").value(employeeList.get(0).getName()))
+                .andExpect(jsonPath("$[0].age").value(employeeList.get(0).getAge()))
+                .andExpect(jsonPath("$[0].gender").value(employeeList.get(0).getGender()))
+                .andExpect(jsonPath("$[0].salary").value(employeeList.get(0).getSalary()))
+                .andExpect(jsonPath("$[0].companyId").value(employeeList.get(0).getCompanyId()))
+                .andExpect(jsonPath("$[1].id").value(employeeList.get(1).getId()))
+                .andExpect(jsonPath("$[1].name").value(employeeList.get(1).getName()))
+                .andExpect(jsonPath("$[1].age").value(employeeList.get(1).getAge()))
+                .andExpect(jsonPath("$[1].gender").value(employeeList.get(1).getGender()))
+                .andExpect(jsonPath("$[1].salary").value(employeeList.get(1).getSalary()))
+                .andExpect(jsonPath("$[1].companyId").value(employeeList.get(1).getCompanyId()));
     }
 }
