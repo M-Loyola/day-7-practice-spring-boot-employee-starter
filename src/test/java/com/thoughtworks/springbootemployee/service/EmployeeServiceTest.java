@@ -18,7 +18,7 @@ class EmployeeServiceTest {
         employeeService = new EmployeeService(mockedEmployeeRepository);
     }
     @Test
-    void should_return_created_employee_when_create_given_employee_service_and_emplooyee_with_valid_age(){
+    void should_return_created_employee_when_create_given_employee_service_and_employee_with_valid_age(){
         //Given
         Employee employee = new Employee(null, "Sam", 23, "Female", 1200, 1L);
         when(mockedEmployeeRepository.insert(employee)).thenReturn(employee);
