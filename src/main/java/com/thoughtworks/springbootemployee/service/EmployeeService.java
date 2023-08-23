@@ -2,10 +2,13 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
 import com.thoughtworks.springbootemployee.exception.EmployeeIsInactiveException;
-import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
@@ -13,23 +16,43 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee create(Employee employee) {
-        if (employee.hasInvalidAge(employee)) {
+    public List<Employee> listAllEmployees() {
+        return employeeRepository.listAllEmployees();
+    }
+
+    public Employee findEmployeeById(Long id) {
+        return employeeRepository.findEmployeeById(id);
+    }
+
+    public List<Employee> findEmployeeByGender(String gender) {
+        return employeeRepository.findEmployeeByGender(gender);
+    }
+
+    public Employee addEmployee(Employee employee) {
+        if (employee.hasInvalidAge()) {
             throw new EmployeeCreateException();
         }
         employee.setEmploymentStatus(true);
-        return employeeRepository.insert(employee);
+        return employeeRepository.save(employee);
     }
 
-    public void delete(Employee employee) {
-        employee.setEmploymentStatus(false);
-    }
-
-    public void update(Employee employee, Integer newAge, Integer newSalary) {
-        if (!employee.isEmploymentStatus()) {
+    public Employee updateEmployee(Long id, Employee newEmployee) {
+        Employee existingEmployee = findEmployeeById(id);
+        if (!existingEmployee.isEmploymentStatus()) {
             throw new EmployeeIsInactiveException();
         }
-        employee.setAge(newAge);
-        employee.setSalary(newSalary);
+        existingEmployee.setAge(newEmployee.getAge());
+        existingEmployee.setSalary(newEmployee.getSalary());
+        return employeeRepository.save(existingEmployee);
+    }
+
+    public void deleteEmployee(Long id) {
+        Employee employee = findEmployeeById(id);
+        employee.setEmploymentStatus(false);
+        employeeRepository.save(employee);
+    }
+
+    public List<Employee> listEmployeesByPage(Long pageNumber, Long pageSize) {
+        return employeeRepository.listEmployeesByPage(pageNumber, pageSize);
     }
 }

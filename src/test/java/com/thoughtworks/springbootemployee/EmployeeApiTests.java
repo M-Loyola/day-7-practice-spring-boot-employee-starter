@@ -116,7 +116,9 @@ class EmployeeApiTests {
     @Test
     void should_return_employee_update_when_perform_update_employees_given_new_employee_age_and_salary_with_JSON_format() throws Exception {
         //Given
-        Employee Sam = employeeRepository.insert(new Employee(null, "Sam", 23, "Female", 1200, 1L));
+        Employee Sam = new Employee(1L, "Sam", 23, "Female", 1200, 1L);
+        Sam.setEmploymentStatus(true);
+        employeeRepository.save(Sam);
         String updatedEmployeeJSON = "{\n" +
                 "    \"age\" : 25,\n" +
                 "    \"salary\" : 1500\n" +

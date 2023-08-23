@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Employee;
-import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,51 +12,47 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping
     public List<Employee> listAllEmployees() {
-        return employeeRepository.listAllEmployees();
+        return employeeService.listAllEmployees();
     }
 
     @GetMapping(path = "/{id}")
     public Employee findEmployeeById(@PathVariable Long id) {
-        return employeeRepository.findEmployeeById(id);
+        return employeeService.findEmployeeById(id);
     }
 
     @GetMapping(params = {"gender"})
     public List<Employee> findEmployeeByGender(@RequestParam String gender) {
-        return employeeRepository.findEmployeeByGender(gender);
+        return employeeService.findEmployeeByGender(gender);
     }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Employee addEmployee(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
+        return employeeService.addEmployee(employee);
     }
 
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployee) {
-        Employee employee = employeeRepository.findEmployeeById(id);
-        employee.setAge(newEmployee.getAge());
-        employee.setSalary(newEmployee.getSalary());
-        return employee;
+        return employeeService.updateEmployee(id, newEmployee);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteEmployee(@PathVariable Long id) {
-        Employee employee = employeeRepository.findEmployeeById(id);
-        employeeRepository.deleteEmployee(employee);
+        employeeService.deleteEmployee(id);
     }
 
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Employee> listEmployeesByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
-        return employeeRepository.listEmployeesByPage(pageNumber, pageSize);
+        return employeeService.listEmployeesByPage(pageNumber, pageSize);
     }
 }

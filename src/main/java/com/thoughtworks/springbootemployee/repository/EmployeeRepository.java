@@ -40,7 +40,10 @@ public class EmployeeRepository {
     }
 
     public Employee save(Employee employee) {
-        Long id = generateNextId();
+        Long id = employee.getId();
+        if (id == null){
+            id = generateNextId();
+        }
         Employee toBeSavedEmployee = new Employee(
                 id,
                 employee.getName(),
@@ -49,6 +52,7 @@ public class EmployeeRepository {
                 employee.getSalary(),
                 employee.getCompanyId()
         );
+        toBeSavedEmployee.setEmploymentStatus(true);
         employees.add(toBeSavedEmployee);
         return toBeSavedEmployee;
     }
@@ -79,6 +83,7 @@ public class EmployeeRepository {
 
     public Employee insert(Employee newEmployee) {
         newEmployee.setId(generateNextId());
+        newEmployee.setEmploymentStatus(true);
         employees.add(newEmployee);
         return newEmployee;
     }

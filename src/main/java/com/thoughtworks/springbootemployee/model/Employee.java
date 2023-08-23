@@ -19,8 +19,8 @@ public class Employee {
         this.companyId = companyId;
     }
 
-    public boolean hasInvalidAge(Employee employee) {
-        return (employee.getAge() < 18) || (employee.getAge() > 65);
+    public boolean hasInvalidAge() {
+        return (this.getAge() < 18) || (this.getAge() > 65);
     }
 
     public Long getCompanyId() {
