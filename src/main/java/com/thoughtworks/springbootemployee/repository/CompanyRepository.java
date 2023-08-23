@@ -28,7 +28,7 @@ public class CompanyRepository {
 
     public Company findCompanyById(Long id) {
         return companies.stream()
-                .filter(company -> company.getId() == id)
+                .filter(company -> company.getId() == id)//TODO: Better to use .equals rather than ==
                 .findFirst()
                 .orElseThrow(CompanyNotFoundException::new);
     }
