@@ -41,6 +41,7 @@ public class EmployeeRepository {
 
     public Employee save(Employee employee) {
         Long id = generateNextId();
+        //TODO: Add checking, what if input in postman has null values.
         Employee toBeSavedEmployee = new Employee(
                 id,
                 employee.getName(),
