@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.repository;
 
-import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
+import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -40,8 +40,10 @@ public class EmployeeRepository {
     }
 
     public Employee save(Employee employee) {
+        if (hasNullValues(employee)) {
+            throw new IllegalArgumentException("Employee data cannot have null values");
+        }
         Long id = generateNextId();
-        //TODO: Add checking, what if input in postman has null values.
         Employee toBeSavedEmployee = new Employee(
                 id,
                 employee.getName(),
@@ -52,6 +54,14 @@ public class EmployeeRepository {
         );
         employees.add(toBeSavedEmployee);
         return toBeSavedEmployee;
+    }
+
+    private static boolean hasNullValues(Employee employee) {
+        return employee.getName() == null
+                || employee.getAge() == null
+                || employee.getGender() == null
+                || employee.getSalary() == null
+                || employee.getCompanyId() == null;
     }
 
     public Long generateNextId() {
