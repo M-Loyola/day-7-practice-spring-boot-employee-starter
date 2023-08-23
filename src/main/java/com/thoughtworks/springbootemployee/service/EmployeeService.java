@@ -18,4 +18,8 @@ public class EmployeeService {
         employee.setEmploymentStatus(true);
         return employeeRepository.insert(employee);
     }
+
+    public void delete(Employee employee) {
+        employee.setEmploymentStatus(false);
+    }
 }
