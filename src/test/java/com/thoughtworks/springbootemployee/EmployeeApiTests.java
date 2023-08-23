@@ -60,9 +60,9 @@ class EmployeeApiTests {
     @Test
     void should_return_status_404_not_found_when_perform_employee_given_not_existed_id() throws Exception {
         //Given
-        Long idNotExist = 99L;
+        long notExistEmployeeId = 99L;
         //When Then
-        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + idNotExist))
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + notExistEmployeeId))
                 .andExpect(status().isNotFound());
     }
 }
